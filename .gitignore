@@ -1,0 +1,6 @@
+.stack-work/
+monty-hall.cabal
+*~
+
+.idea
+*.iml
