@@ -1,16 +1,18 @@
-module Stated where
+module Stated
+  ( executeS
+  ) where
 
 import           Control.Monad.State.Strict
-import           Data.List                  (find, groupBy)
+import           Data.List                  (find)
 import           Data.Maybe                 (fromJust)
 import           System.Random
 
 type RandomState a = State StdGen a
 
-execute :: IO ()
-execute = do
+executeS :: IO ()
+executeS = do
   gen <- getStdGen
-  let result = play1000Times gen
+  let result = evalState play1000Times gen
   aggregate result
 
 aggregate :: [Game] -> IO ()
@@ -26,13 +28,7 @@ aggregate games =
    in putStrLn $ "success: " ++ show (fst result) ++ ", failed: " ++ show (snd result)
 
 play1000Times :: RandomState [Game]
-play1000Times gen = go 1000 gen []
-  where
-    go :: Int -> StdGen -> [Game] -> [Game]
-    go 0 gen result = result
-    go count gen result =
-      let (newGen, game) = play gen
-       in go (count - 1) newGen (game : result)
+play1000Times = forM [0 .. 999] $ \_ -> play
 
 play :: RandomState Game
 play = do

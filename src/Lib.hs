@@ -1,5 +1,7 @@
 module Lib
-  ( Normal.execute
+  ( module Normal
+  , module Stated
   ) where
 
 import           Normal
+import           Stated
