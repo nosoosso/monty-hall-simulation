@@ -2,8 +2,7 @@ module Normal
   ( execute
   ) where
 
-import           Control.Monad.State.Strict
-import           Data.List                  (find, groupBy)
+import           Data.List                  (find)
 import           Data.Maybe                 (fromJust)
 import           System.Random
 
